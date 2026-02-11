@@ -3,9 +3,11 @@ const {
   Insect
 } = require('./main')
 //require('./module/path')
-require('./module/fs')
+//require('./module/fs')
 
-const animal = new Animal('Dog')
-const insect = new Insect('spider')
+const animal = new Animal('Lion')
+const insect = new Insect('Cat')
 //animal.noise()
 //insect.noise()
+
+require('./module/http')
