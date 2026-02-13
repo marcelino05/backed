@@ -1,5 +1,5 @@
 const express = require('express')
-const userModel = require("../src/user")
+const userModel = require("../src/module/user")
 
 const app = express()
 
@@ -27,4 +27,6 @@ app.post("/user", async (req, res) => {
 })
 
 const porta = 3000
-app.listen(porta, () => console.log(`Rodando na porta ${porta}`))
+app.listen(porta, () => 
+  console.log(`Rodando na porta ${porta}`)
+)
