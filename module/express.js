@@ -2,7 +2,6 @@ const express = require('express')
 const userModel = require("../src/module/user")
 
 const app = express()
-
 app.use(express.json()) // MUITO IMPORTANTE
 
 app.get("/home", (req, res) => {
@@ -25,8 +24,9 @@ app.post("/user", async (req, res) => {
     res.status(400).json({ error: error.message })
   }
 })
-
-const porta = 3000
-app.listen(porta, () => 
-  console.log(`Rodando na porta ${porta}`)
-)
+const porta = process.env.porta || 3000;
+const cors = require("cors")
+app.use(cors())
+app.listen(porta, () => {
+  console.log("Servidor rodando");
+});
