@@ -1,22 +1,26 @@
 const express = require('express')
 const userModel = require("../src/module/user")
+const cors = require("cors")
 
 const app = express()
-app.use(express.json()) // MUITO IMPORTANTE
+
+app.use(cors())
+app.use(express.json())
 
 app.get("/home", (req, res) => {
   res.status(200).send("<h1>O servidor está rodando com sucesso</h1>")
 })
 
-app.get("/users", (req, res) => {
-  const data = [
-    { nome: "marcelino", email: "marcelino@gmail.com" },
-    { nome: "MG", email: "mg@gmail.com" }
-  ]
-  res.status(200).json(data)
+app.get("/users", async (req, res) => {
+  try {
+    const users = await userModel.find()
+    res.status(200).json(users)
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
 })
 
-app.post("/user", async (req, res) => {
+app.post("/users", async (req, res) => {
   try {
     const user = await userModel.create(req.body)
     res.status(201).json(user)
@@ -24,9 +28,5 @@ app.post("/user", async (req, res) => {
     res.status(400).json({ error: error.message })
   }
 })
-const porta = process.env.porta || 3000;
-const cors = require("cors")
-app.use(cors())
-app.listen(porta, () => {
-  console.log("Servidor rodando");
-});
+
+module.exports = app
