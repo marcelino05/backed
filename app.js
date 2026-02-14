@@ -14,15 +14,13 @@ Insect
 //
 
 require('dotenv').config()
-const connectDatabase = require('./src/conect') // corrigido o nome
-const expressApp = require('./module/express')  // importar app
+const connectDatabase = require('./src/conect')
+const app = require('./module/express')
 
-// Conecta ao Mongo
 connectDatabase()
   .then(() => {
-    // Aqui garante que o app só inicia depois do Mongo conectado
     const PORT = process.env.PORT || 3000
-    expressApp.listen(PORT, () => {
+    app.listen(PORT, () => {
       console.log(`Servidor rodando na porta ${PORT}`)
     })
   })
